@@ -5,12 +5,15 @@ import type {
   StudentProfileResponse
 } from "@/types/demo";
 
-export async function getStudentMastery(studentToken: string): Promise<StudentMasteryResponse> {
+export async function getStudentMastery(
+  studentToken: string
+): Promise<StudentMasteryResponse | undefined> {
   await Promise.resolve();
-  return (
-    studentMasteryByToken[studentToken as keyof typeof studentMasteryByToken] ??
-    studentMasteryByToken[demoIds.studentPrimary]
-  );
+  if (!studentToken) {
+    return undefined;
+  }
+  const match = studentMasteryByToken[studentToken as keyof typeof studentMasteryByToken];
+  return match ?? undefined;
 }
 
 export async function createStudentAgentSession(
@@ -38,10 +41,13 @@ export async function createStudentAgentSession(
   };
 }
 
-export async function getStudentProfile(studentToken: string): Promise<StudentProfileResponse> {
+export async function getStudentProfile(
+  studentToken: string
+): Promise<StudentProfileResponse | undefined> {
   await Promise.resolve();
-  return (
-    studentProfileByToken[studentToken as keyof typeof studentProfileByToken] ??
-    studentProfileByToken[demoIds.studentPrimary]
-  );
+  if (!studentToken) {
+    return undefined;
+  }
+  const match = studentProfileByToken[studentToken as keyof typeof studentProfileByToken];
+  return match ?? undefined;
 }
