@@ -23,6 +23,7 @@
       <select v-model="form.trigger_type">
         <option value="misconception">misconception</option>
         <option value="ai_dependency">ai_dependency</option>
+        <option value="ai_overreliance">ai_overreliance</option>
         <option value="no_ai_gap">no_ai_gap</option>
         <option value="emotion_signal">emotion_signal</option>
       </select>

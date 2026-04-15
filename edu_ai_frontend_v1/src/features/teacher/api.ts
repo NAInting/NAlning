@@ -1,5 +1,4 @@
 import {
-  demoIds,
   teacherDailyReport,
   teacherStudentDetailByToken
 } from "@/mocks/data/demo-data";
@@ -33,11 +32,12 @@ export async function createIntervention(payload: {
 
 export async function getTeacherStudentDetail(
   studentToken?: string
-): Promise<TeacherStudentDetailViewModel> {
+): Promise<TeacherStudentDetailViewModel | undefined> {
   await Promise.resolve();
-  const key = studentToken ?? demoIds.studentPrimary;
+  if (!studentToken) {
+    return undefined;
+  }
   const match =
-    teacherStudentDetailByToken[key as keyof typeof teacherStudentDetailByToken] ??
-    teacherStudentDetailByToken[demoIds.studentPrimary];
-  return match as TeacherStudentDetailViewModel;
+    teacherStudentDetailByToken[studentToken as keyof typeof teacherStudentDetailByToken];
+  return match ? (match as TeacherStudentDetailViewModel) : undefined;
 }
