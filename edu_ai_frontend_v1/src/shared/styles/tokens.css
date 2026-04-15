@@ -1,0 +1,58 @@
+:root {
+  --color-bg-canvas: #f3efe6;
+  --color-bg-page-top: #f7f2e8;
+  --color-bg-page-bottom: #efe6d5;
+  --color-surface-base: rgba(255, 250, 241, 0.82);
+  --color-surface-muted: rgba(255, 255, 255, 0.64);
+  --color-surface-strong: rgba(255, 255, 255, 0.72);
+  --color-line-soft: rgba(102, 76, 48, 0.16);
+  --color-text-primary: #1d1a17;
+  --color-text-secondary: #6f6256;
+  --color-text-inverse: #f9f3ea;
+
+  --color-role-student: #196f87;
+  --color-role-teacher: #8a4722;
+  --color-role-guardian: #5c5b2c;
+  --color-role-admin: #5d3f76;
+
+  --color-brand-primary: #1a6b63;
+  --color-brand-secondary: #d89b4f;
+  --color-status-success: #3b7f58;
+  --color-status-warning: #d89b4f;
+  --color-status-danger: #b14f3f;
+
+  --color-heat-critical: #8a4722;
+  --color-heat-medium: #b56b2e;
+  --color-heat-low: #d89b4f;
+  --color-heat-resolved: #d7e6df;
+
+  --font-sans: "Aptos", "Trebuchet MS", "Microsoft YaHei UI", sans-serif;
+  --font-serif: "Georgia", "Times New Roman", serif;
+
+  --font-size-hero: clamp(2rem, 3vw, 3rem);
+  --font-size-h1: 1.65rem;
+  --font-size-h2: 1.4rem;
+  --font-size-h3: 1.05rem;
+  --font-size-body: 1rem;
+  --font-size-small: 0.86rem;
+  --font-size-micro: 0.72rem;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 18px;
+  --space-6: 22px;
+  --space-7: 24px;
+  --space-8: 28px;
+
+  --radius-pill: 999px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-card: 0 24px 60px rgba(43, 33, 24, 0.12);
+  --layout-sidebar-width: 320px;
+  --layout-content-max: 1440px;
+  --breakpoint-tablet: 1100px;
+  --breakpoint-mobile: 720px;
+}
