@@ -72,6 +72,9 @@ const grantedCount = computed(() => items.value.filter((item) => item.status ===
 
 async function handleGrant(consentType: string) {
   const response = await createConsent(auth.guardianId, consentType);
+  if (!response) {
+    return;
+  }
   lastResponse.value = response;
   items.value = items.value.map((item) =>
     item.consent_type === consentType
@@ -92,7 +95,10 @@ async function handleWithdraw(consentId: string) {
   if (!target) {
     return;
   }
-  const response = await withdrawConsent(consentId, target.consent_type);
+  const response = await withdrawConsent(auth.guardianId, consentId, target.consent_type);
+  if (!response) {
+    return;
+  }
   lastResponse.value = response;
   items.value = items.value.map((item) =>
     item.consent_id === consentId

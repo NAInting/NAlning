@@ -43,8 +43,15 @@ export const handlers = [
     return HttpResponse.json(result, { status: 201 });
   }),
   http.post("/api/v1/consents/:consentId/withdraw", async ({ params, request }) => {
-    const body = (await request.json()) as { consent_type: string };
-    const result = await withdrawConsent(String(params.consentId), body.consent_type);
+    const body = (await request.json()) as { guardian_id: string; consent_type: string };
+    const result = await withdrawConsent(
+      body.guardian_id,
+      String(params.consentId),
+      body.consent_type
+    );
+    if (!result) {
+      return HttpResponse.json({ error: "consent_not_found_or_unauthorized" }, { status: 404 });
+    }
     return HttpResponse.json(result);
   }),
   http.get("/mock/admin/preflight-summary", async () => {
