@@ -11,6 +11,7 @@ export const demoIds = {
   studentEnglish: "stu_tok_4c52",
   studentAiRisk: "stu_tok_7d88",
   guardianPrimary: "guardian_pk_001",
+  guardianSecondary: "guardian_pk_002",
   reportDaily: "rpt_01K300",
   interventionOpen: "int_01K400",
   sessionMain: "sess_01K100"
@@ -213,57 +214,112 @@ export const teacherStudentDetailByToken = {
 
 export const teacherStudentDetail = teacherStudentDetailByToken[demoIds.studentPrimary];
 
-export const guardianConsentStatus = {
-  student_token: demoIds.studentPrimary,
-  items: [
-    {
-      consent_id: "consent_guardian_001_student_agent_v1",
-      consent_type: "student_agent",
-      version: "v1.0",
-      status: "granted",
-      effective_at: "2026-04-12T08:00:00+08:00",
-      expires_at: "2026-10-12T08:00:00+08:00"
-    },
-    {
-      consent_id: "consent_guardian_001_teacher_agent_summary_v1",
-      consent_type: "teacher_agent_summary",
-      version: "v1.0",
-      status: "granted",
-      effective_at: "2026-04-12T08:00:00+08:00",
-      expires_at: "2026-10-12T08:00:00+08:00"
-    },
-    {
-      consent_id: "consent_guardian_001_guardian_summary_v1",
-      consent_type: "guardian_summary",
-      version: "v1.0",
-      status: "granted",
-      effective_at: "2026-04-12T08:00:00+08:00",
-      expires_at: "2026-10-12T08:00:00+08:00"
-    }
-  ]
+export const guardianConsentStatusByGuardianId = {
+  [demoIds.guardianPrimary]: {
+    student_token: demoIds.studentPrimary,
+    items: [
+      {
+        consent_id: "consent_guardian_001_student_agent_v1",
+        consent_type: "student_agent",
+        version: "v1.0",
+        status: "granted",
+        effective_at: "2026-04-12T08:00:00+08:00",
+        expires_at: "2026-10-12T08:00:00+08:00"
+      },
+      {
+        consent_id: "consent_guardian_001_teacher_agent_summary_v1",
+        consent_type: "teacher_agent_summary",
+        version: "v1.0",
+        status: "granted",
+        effective_at: "2026-04-12T08:00:00+08:00",
+        expires_at: "2026-10-12T08:00:00+08:00"
+      },
+      {
+        consent_id: "consent_guardian_001_guardian_summary_v1",
+        consent_type: "guardian_summary",
+        version: "v1.0",
+        status: "granted",
+        effective_at: "2026-04-12T08:00:00+08:00",
+        expires_at: "2026-10-12T08:00:00+08:00"
+      }
+    ]
+  },
+  [demoIds.guardianSecondary]: {
+    student_token: demoIds.studentSecondary,
+    items: [
+      {
+        consent_id: "consent_guardian_002_student_agent_v1",
+        consent_type: "student_agent",
+        version: "v1.0",
+        status: "granted",
+        effective_at: "2026-04-12T08:00:00+08:00",
+        expires_at: "2026-10-12T08:00:00+08:00"
+      },
+      {
+        consent_id: "consent_guardian_002_teacher_agent_summary_v1",
+        consent_type: "teacher_agent_summary",
+        version: "v1.0",
+        status: "withdrawn",
+        effective_at: "2026-04-13T14:20:00+08:00",
+        expires_at: "2026-10-12T08:00:00+08:00"
+      },
+      {
+        consent_id: "consent_guardian_002_guardian_summary_v1",
+        consent_type: "guardian_summary",
+        version: "v1.0",
+        status: "granted",
+        effective_at: "2026-04-12T08:00:00+08:00",
+        expires_at: "2026-10-12T08:00:00+08:00"
+      }
+    ]
+  }
 } as const;
 
-export const guardianSummary = {
-  studentToken: demoIds.studentPrimary,
-  displayName: "张一",
-  progressSignals: [
-    "二次函数主知识点一周提升 +8.5。",
-    "已经能解释 a、h、k 的含义，但表征切换还不稳定。"
-  ],
-  supportSuggestions: [
-    "先问 1 个问题，不要连续追问。",
-    "优先听孩子口头解释，不做排名比较。"
-  ],
-  visibilityBoundary: [
-    {
-      label: "可以看到",
-      items: ["阶段性学习摘要", "三类同意状态", "家庭支持建议"]
-    },
-    {
-      label: "默认看不到",
-      items: ["教师内部判断链", "同学对比数据", "隐私层详情"]
-    }
-  ]
+export const guardianSummaryByGuardianId = {
+  [demoIds.guardianPrimary]: {
+    studentToken: demoIds.studentPrimary,
+    displayName: "张一",
+    progressSignals: [
+      "二次函数主知识点一周提升 +8.5。",
+      "已经能解释 a、h、k 的含义，但表征切换还不稳定。"
+    ],
+    supportSuggestions: [
+      "先问 1 个问题，不要连续追问。",
+      "优先听孩子口头解释，不做排名比较。"
+    ],
+    visibilityBoundary: [
+      {
+        label: "可以看到",
+        items: ["阶段性学习摘要", "三类同意状态", "家庭支持建议"]
+      },
+      {
+        label: "默认看不到",
+        items: ["教师内部判断链", "同学对比数据", "隐私层详情"]
+      }
+    ]
+  },
+  [demoIds.guardianSecondary]: {
+    studentToken: demoIds.studentSecondary,
+    displayName: "李二",
+    progressSignals: [
+      "最近 7 天独立做题节奏稳定，未出现连续崩溃。",
+      "提示依赖频次偏高，一周内出现 3 次连追。"
+    ],
+    supportSuggestions: [
+      "鼓励孩子先独立写出第一步，再判断要不要求助。",
+      "只谈学习节奏，不提 AI 评分分数。"
+    ],
+    visibilityBoundary: [
+      {
+        label: "可以看到",
+        items: ["阶段性学习摘要", "三类同意状态", "家庭支持建议"]
+      },
+      {
+        label: "默认看不到",
+        items: ["教师内部判断链", "同学对比数据", "隐私层详情"]
+      }
+    ]
+  }
 } as const;
 
 export const adminPreflight = {

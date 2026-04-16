@@ -135,6 +135,7 @@ export interface ConsentStatusResponse {
 
 export interface ConsentWriteResponse {
   consent_id: string;
+  consent_type: string;
   status: string;
   version: string;
   effective_at: string;

@@ -33,16 +33,18 @@ export const handlers = [
     const result = await createIntervention(body);
     return HttpResponse.json(result, { status: 201 });
   }),
-  http.get("/api/v1/consents/:studentToken/status", async () => {
-    const result = await getConsentStatus();
+  http.get("/api/v1/consents/:guardianId/status", async ({ params }) => {
+    const result = await getConsentStatus(String(params.guardianId));
     return HttpResponse.json(result);
   }),
-  http.post("/api/v1/consents", async () => {
-    const result = await createConsent();
+  http.post("/api/v1/consents", async ({ request }) => {
+    const body = (await request.json()) as { guardian_id: string; consent_type: string };
+    const result = await createConsent(body.guardian_id, body.consent_type);
     return HttpResponse.json(result, { status: 201 });
   }),
-  http.post("/api/v1/consents/:consentId/withdraw", async ({ params }) => {
-    const result = await withdrawConsent(String(params.consentId));
+  http.post("/api/v1/consents/:consentId/withdraw", async ({ params, request }) => {
+    const body = (await request.json()) as { consent_type: string };
+    const result = await withdrawConsent(String(params.consentId), body.consent_type);
     return HttpResponse.json(result);
   }),
   http.get("/mock/admin/preflight-summary", async () => {
