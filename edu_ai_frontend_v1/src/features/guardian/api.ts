@@ -1,20 +1,17 @@
 import {
+  appealsByGuardianId,
   guardianConsentStatusByGuardianId,
   guardianSummaryByGuardianId
 } from "@/mocks/data/demo-data";
+import { generateRequestId } from "@/shared/utils/requestId";
 import type {
+  AppealCreateInput,
+  AppealListResponse,
+  AppealWriteResponse,
   ConsentStatusResponse,
   ConsentWriteResponse,
   GuardianSummaryViewModel
 } from "@/types/demo";
-
-function generateRequestId(): string {
-  const random =
-    typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
-      ? crypto.randomUUID().replace(/-/g, "").slice(0, 10)
-      : Math.random().toString(36).slice(2, 12);
-  return `req_${random}`;
-}
 
 export async function getGuardianSummary(
   guardianId: string
@@ -105,6 +102,47 @@ export async function withdrawConsent(
     version: "v1.0",
     effective_at: now.toISOString(),
     expires_at: now.toISOString(),
+    request_id: generateRequestId()
+  };
+}
+
+export async function getMyAppeals(
+  guardianId: string
+): Promise<AppealListResponse | undefined> {
+  await Promise.resolve();
+  if (!guardianId) {
+    return undefined;
+  }
+  const match =
+    appealsByGuardianId[guardianId as keyof typeof appealsByGuardianId];
+  return match ? (match as AppealListResponse) : undefined;
+}
+
+export async function createAppeal(
+  input: AppealCreateInput
+): Promise<AppealWriteResponse | undefined> {
+  await Promise.resolve();
+  if (
+    !input.guardian_id ||
+    !input.student_token ||
+    !input.target_ref.trim() ||
+    !input.reason.trim()
+  ) {
+    return undefined;
+  }
+  const consent =
+    guardianConsentStatusByGuardianId[
+      input.guardian_id as keyof typeof guardianConsentStatusByGuardianId
+    ];
+  if (!consent || consent.student_token !== input.student_token) {
+    return undefined;
+  }
+  const now = new Date().toISOString();
+  const shortId = input.guardian_id.split("_").pop() ?? "unknown";
+  return {
+    appeal_id: `appeal_${shortId}_${Date.now().toString(36)}`,
+    status: "submitted",
+    last_updated_at: now,
     request_id: generateRequestId()
   };
 }

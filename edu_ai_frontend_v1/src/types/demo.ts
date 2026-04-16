@@ -195,3 +195,53 @@ export interface ActionItem {
   title: string;
   body: string;
 }
+
+export type AppealStatus = "submitted" | "under_review" | "resolved" | "escalated";
+export type AppealTargetType = "ai_scoring" | "agent_behavior" | "teacher_intervention";
+
+export interface AppealItem {
+  appeal_id: string;
+  guardian_id: string;
+  student_token: string;
+  target_type: AppealTargetType;
+  target_ref: string;
+  reason: string;
+  status: AppealStatus;
+  submitted_at: string;
+  last_updated_at: string;
+  resolution_note?: string;
+  manual_review_required: boolean;
+}
+
+export interface AppealListResponse {
+  guardian_id: string;
+  items: readonly AppealItem[];
+}
+
+export interface AppealQueueResponse {
+  generated_at: string;
+  items: readonly AppealItem[];
+}
+
+export interface AppealCreateInput {
+  guardian_id: string;
+  student_token: string;
+  target_type: AppealTargetType;
+  target_ref: string;
+  reason: string;
+}
+
+export interface AppealAdvanceInput {
+  admin_id: string;
+  appeal_id: string;
+  next_status: Exclude<AppealStatus, "submitted">;
+  resolution_note?: string;
+  manual_review_confirmed?: boolean;
+}
+
+export interface AppealWriteResponse {
+  appeal_id: string;
+  status: AppealStatus;
+  last_updated_at: string;
+  request_id: string;
+}

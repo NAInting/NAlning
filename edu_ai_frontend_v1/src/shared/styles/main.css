@@ -499,6 +499,50 @@ button {
   font-size: var(--font-size-small);
 }
 
+.appeal-row {
+  border: 1px solid var(--color-line-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-strong);
+  padding: var(--space-4);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.field-row {
+  display: grid;
+  gap: 8px;
+}
+
+.field-row input,
+.field-row select,
+.field-row textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line-soft);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+.helper-text.danger {
+  color: var(--color-status-danger);
+}
+
+.helper-text.warning {
+  color: var(--color-status-warning, #b78529);
+}
+
+.helper-text.success {
+  color: var(--color-status-success);
+}
+
 @media (max-width: 1100px) {
   .layout-shell {
     grid-template-columns: 1fr;

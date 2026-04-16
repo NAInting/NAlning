@@ -322,6 +322,63 @@ export const guardianSummaryByGuardianId = {
   }
 } as const;
 
+export const appealsByGuardianId = {
+  [demoIds.guardianPrimary]: {
+    guardian_id: demoIds.guardianPrimary,
+    items: [
+      {
+        appeal_id: "appeal_demo_001",
+        guardian_id: demoIds.guardianPrimary,
+        student_token: demoIds.studentPrimary,
+        target_type: "ai_scoring",
+        target_ref: "sum_demo_001",
+        reason: "AI 给出的依赖度评分偏高，孩子在家明显能独立完成，希望复盘评分依据。",
+        status: "under_review",
+        submitted_at: "2026-04-13T09:15:00+08:00",
+        last_updated_at: "2026-04-13T15:00:00+08:00",
+        manual_review_required: true
+      }
+    ]
+  },
+  [demoIds.guardianSecondary]: {
+    guardian_id: demoIds.guardianSecondary,
+    items: [
+      {
+        appeal_id: "appeal_demo_002",
+        guardian_id: demoIds.guardianSecondary,
+        student_token: demoIds.studentSecondary,
+        target_type: "teacher_intervention",
+        target_ref: "int_01K400",
+        reason: "L2 干预节奏偏强，希望先通过家庭复盘观察一周。",
+        status: "submitted",
+        submitted_at: "2026-04-14T08:00:00+08:00",
+        last_updated_at: "2026-04-14T08:00:00+08:00",
+        manual_review_required: false
+      }
+    ]
+  }
+} as const;
+
+export const appealQueueForAdmin = {
+  generated_at: "2026-04-15T09:00:00+08:00",
+  items: [
+    appealsByGuardianId[demoIds.guardianPrimary].items[0],
+    appealsByGuardianId[demoIds.guardianSecondary].items[0],
+    {
+      appeal_id: "appeal_demo_003",
+      guardian_id: "guardian_pk_003",
+      student_token: "stu_tok_8a91",
+      target_type: "agent_behavior",
+      target_ref: "sess_01K100",
+      reason: "Agent 在课业以外话题接受了引导，希望复盘对话日志。",
+      status: "submitted",
+      submitted_at: "2026-04-15T07:40:00+08:00",
+      last_updated_at: "2026-04-15T07:40:00+08:00",
+      manual_review_required: true
+    }
+  ]
+} as const;
+
 export const adminPreflight = {
   pilot_id: "pilot_xsd_001",
   school_id: demoIds.schoolId,

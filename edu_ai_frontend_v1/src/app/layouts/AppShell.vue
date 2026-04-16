@@ -56,12 +56,14 @@ const routeMap = {
   ],
   guardian: [
     { path: "/guardian/summary", label: "家长摘要" },
-    { path: "/guardian/consents", label: "家长同意" }
+    { path: "/guardian/consents", label: "家长同意" },
+    { path: "/guardian/appeals", label: "家长申诉" }
   ],
   admin: [
     { path: "/admin/compliance", label: "管理员合规" },
     { path: "/admin/audit", label: "管理员审计" },
-    { path: "/admin/preflight", label: "管理员预检" }
+    { path: "/admin/preflight", label: "管理员预检" },
+    { path: "/admin/appeals", label: "申诉队列" }
   ]
 } as const;
 

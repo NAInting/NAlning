@@ -15,6 +15,7 @@ export const useAuthStore = defineStore("auth", () => {
   const studentToken = ref("stu_tok_9f3a");
   const teacherId = ref("teacher_math_001");
   const guardianId = ref("guardian_pk_001");
+  const adminId = ref("admin_compliance_001");
 
   const homePath = computed(() => roleHomeMap[role.value]);
 
@@ -27,6 +28,7 @@ export const useAuthStore = defineStore("auth", () => {
     studentToken,
     teacherId,
     guardianId,
+    adminId,
     homePath,
     switchRole
   };

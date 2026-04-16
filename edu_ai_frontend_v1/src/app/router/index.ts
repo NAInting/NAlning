@@ -8,9 +8,11 @@ import TeacherStudentDetailPage from "@/features/teacher/pages/TeacherStudentDet
 import TeacherInterventionCreatePage from "@/features/teacher/pages/TeacherInterventionCreatePage.vue";
 import GuardianSummaryPage from "@/features/guardian/pages/GuardianSummaryPage.vue";
 import GuardianConsentsPage from "@/features/guardian/pages/GuardianConsentsPage.vue";
+import GuardianAppealsPage from "@/features/guardian/pages/GuardianAppealsPage.vue";
 import AdminCompliancePage from "@/features/admin/pages/AdminCompliancePage.vue";
 import AdminAuditPage from "@/features/admin/pages/AdminAuditPage.vue";
 import AdminPreflightPage from "@/features/admin/pages/AdminPreflightPage.vue";
+import AdminAppealsPage from "@/features/admin/pages/AdminAppealsPage.vue";
 import { useAuthStore } from "@/stores/auth";
 
 const routes = [
@@ -23,9 +25,11 @@ const routes = [
   { path: "/teacher/interventions/new", component: TeacherInterventionCreatePage, meta: { role: "teacher", title: "干预录入" } },
   { path: "/guardian/summary", component: GuardianSummaryPage, meta: { role: "guardian", title: "家长摘要" } },
   { path: "/guardian/consents", component: GuardianConsentsPage, meta: { role: "guardian", title: "家长同意" } },
+  { path: "/guardian/appeals", component: GuardianAppealsPage, meta: { role: "guardian", title: "家长申诉" } },
   { path: "/admin/compliance", component: AdminCompliancePage, meta: { role: "admin", title: "管理员合规" } },
   { path: "/admin/audit", component: AdminAuditPage, meta: { role: "admin", title: "管理员审计" } },
-  { path: "/admin/preflight", component: AdminPreflightPage, meta: { role: "admin", title: "管理员预检" } }
+  { path: "/admin/preflight", component: AdminPreflightPage, meta: { role: "admin", title: "管理员预检" } },
+  { path: "/admin/appeals", component: AdminAppealsPage, meta: { role: "admin", title: "申诉队列" } }
 ];
 
 const router = createRouter({
