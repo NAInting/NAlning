@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader eyebrow="Teacher / Phase B" :title="headerTitle" meta="个体成长雷达、过程层摘要与 No-AI 建议">
+    <SectionHeader eyebrow="Teacher / Phase B B6" :title="headerTitle" meta="个体成长雷达、过程层摘要与 No-AI 建议">
       <template #aside>
         <div class="button-row">
           <RouterLink class="button-secondary" to="/teacher/dashboard">返回日报</RouterLink>
@@ -113,13 +113,15 @@ import Panel from "@/shared/ui/Panel.vue";
 import SectionHeader from "@/shared/ui/SectionHeader.vue";
 import SignalList from "@/shared/ui/SignalList.vue";
 import StatusPill from "@/shared/ui/StatusPill.vue";
+import { useAuthStore } from "@/stores/auth";
 
+const auth = useAuthStore();
 const route = useRoute();
 const studentToken = computed(() => String(route.params.studentToken ?? "stu_tok_9f3a"));
 
 const detailQuery = useQuery({
-  queryKey: ["teacher-student-detail", studentToken],
-  queryFn: () => getTeacherStudentDetail(studentToken.value)
+  queryKey: ["teacher-student-detail", auth.teacherId, studentToken],
+  queryFn: () => getTeacherStudentDetail(auth.teacherId, studentToken.value)
 });
 
 const detail = computed(() => detailQuery.data.value!);

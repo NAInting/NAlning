@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionHeader eyebrow="Teacher / Phase A" title="干预录入" meta="提交 L1-L5 干预，形成可追溯闭环">
+    <SectionHeader eyebrow="Teacher / Phase B B6" title="干预录入" meta="提交 L1-L5 干预，形成可追溯闭环">
       <template #aside>
         <StatusPill text="P0 页面" tone="warning" />
       </template>
@@ -19,6 +19,7 @@
       </Panel>
 
       <Panel>
+        <p v-if="lastError" class="helper-text danger">{{ lastError }}</p>
         <InterventionPanel
           :title="result ? '已创建干预' : '等待提交'"
           :status="result?.status ?? 'draft'"
@@ -48,6 +49,7 @@ const auth = useAuthStore();
 const route = useRoute();
 
 const result = ref<InterventionCreateResponse | null>(null);
+const lastError = ref<string | null>(null);
 const submittedLevel = ref("L2");
 const submittedReportId = ref("rpt_01K300");
 
@@ -72,8 +74,14 @@ async function handleSubmit(payload: {
   action_taken: string;
   verification_due_at: string;
 }) {
+  lastError.value = null;
   submittedLevel.value = payload.intervention_level;
   submittedReportId.value = payload.linked_report_id;
-  result.value = await createIntervention(payload);
+  const response = await createIntervention(auth.teacherId, payload);
+  if (!response) {
+    lastError.value = "创建失败：请确认教师身份及学生归属关系。";
+    return;
+  }
+  result.value = response;
 }
 </script>

@@ -118,7 +118,7 @@ export async function advanceAppealState(
 }
 
 const allScores: StudentScoreRecord[] = Object.values(studentScoresByToken).flatMap(
-  (entry) => entry.items.map((item) => ({ ...item, dimensions: [...item.dimensions] }))
+  (entry) => entry.items.map((item) => ({ ...item, dimensions: item.dimensions.map((d) => ({ ...d })) }))
 );
 
 export async function getAdminScoringOverview(

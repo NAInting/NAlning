@@ -72,6 +72,6 @@ export async function getStudentScores(
   return {
     student_token: match.student_token,
     range_days: match.range_days,
-    items: visible.map((s) => ({ ...s, dimensions: [...s.dimensions] }))
+    items: visible.map((s) => ({ ...s, dimensions: s.dimensions.map((d) => ({ ...d })) }))
   };
 }

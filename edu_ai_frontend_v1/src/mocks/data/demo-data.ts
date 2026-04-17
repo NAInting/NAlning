@@ -214,6 +214,16 @@ export const teacherStudentDetailByToken = {
 
 export const teacherStudentDetail = teacherStudentDetailByToken[demoIds.studentPrimary];
 
+export const teacherByTeacherId = {
+  [demoIds.teacherMath]: {
+    teacher_id: demoIds.teacherMath,
+    display_name: "王老师",
+    class_id: demoIds.classId,
+    course_ids: [demoIds.courseMath],
+    student_tokens: [demoIds.studentPrimary, demoIds.studentSecondary]
+  }
+} as const;
+
 export const guardianConsentStatusByGuardianId = {
   [demoIds.guardianPrimary]: {
     student_token: demoIds.studentPrimary,

@@ -32,18 +32,28 @@ export const handlers = [
     const result = await getStudentProfile(String(params.studentToken));
     return HttpResponse.json(result);
   }),
-  http.post("/api/v1/teacher-agent/reports/daily", async () => {
-    const result = await getTeacherDailyReport();
+  http.post("/api/v1/teacher-agent/reports/daily", async ({ request }) => {
+    const teacherId = request.headers.get("x-teacher-id") ?? "";
+    const result = await getTeacherDailyReport(teacherId);
+    if (!result) {
+      return HttpResponse.json({ error: "teacher_id_missing" }, { status: 401 });
+    }
     return HttpResponse.json(result);
   }),
   http.post("/api/v1/interventions", async ({ request }) => {
     const body = (await request.json()) as {
+      teacher_id: string;
+      student_token?: string;
+      linked_report_id?: string;
       intervention_level: string;
       trigger_type: string;
       action_taken: string;
       verification_due_at: string;
     };
-    const result = await createIntervention(body);
+    const result = await createIntervention(body.teacher_id, body);
+    if (!result) {
+      return HttpResponse.json({ error: "teacher_not_found_or_student_not_owned" }, { status: 403 });
+    }
     return HttpResponse.json(result, { status: 201 });
   }),
   http.get("/api/v1/consents/:guardianId/status", async ({ params }) => {
