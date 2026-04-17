@@ -61,6 +61,7 @@ const routeMap = {
     { path: "/guardian/appeals", label: "家长申诉" }
   ],
   admin: [
+    { path: "/admin/dashboard", label: "管理员仪表盘" },
     { path: "/admin/compliance", label: "管理员合规" },
     { path: "/admin/audit", label: "管理员审计" },
     { path: "/admin/preflight", label: "管理员预检" },

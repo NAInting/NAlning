@@ -21,18 +21,33 @@ import type {
   StudentScoreRecord
 } from "@/types/demo";
 
-export async function getAdminPreflight(): Promise<AdminPreflightSummary> {
+export async function getAdminPreflight(
+  adminId: string
+): Promise<AdminPreflightSummary | undefined> {
   await Promise.resolve();
+  if (!adminId || !isKnownAdmin(adminId)) {
+    return undefined;
+  }
   return adminPreflight;
 }
 
-export async function getAdminCompliance(): Promise<AdminComplianceSummary> {
+export async function getAdminCompliance(
+  adminId: string
+): Promise<AdminComplianceSummary | undefined> {
   await Promise.resolve();
+  if (!adminId || !isKnownAdmin(adminId)) {
+    return undefined;
+  }
   return adminCompliance;
 }
 
-export async function getAdminAuditPreview(): Promise<AdminAuditPreview> {
+export async function getAdminAuditPreview(
+  adminId: string
+): Promise<AdminAuditPreview | undefined> {
   await Promise.resolve();
+  if (!adminId || !isKnownAdmin(adminId)) {
+    return undefined;
+  }
   return adminAuditPreview;
 }
 
@@ -103,7 +118,7 @@ export async function advanceAppealState(
 }
 
 const allScores: StudentScoreRecord[] = Object.values(studentScoresByToken).flatMap(
-  (entry) => entry.items.map((item) => ({ ...item }))
+  (entry) => entry.items.map((item) => ({ ...item, dimensions: [...item.dimensions] }))
 );
 
 export async function getAdminScoringOverview(

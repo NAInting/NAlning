@@ -67,12 +67,20 @@ export const handlers = [
     }
     return HttpResponse.json(result);
   }),
-  http.get("/mock/admin/preflight-summary", async () => {
-    const result = await getAdminPreflight();
+  http.get("/mock/admin/preflight-summary", async ({ request }) => {
+    const adminId = request.headers.get("x-admin-id") ?? "";
+    const result = await getAdminPreflight(adminId);
+    if (!result) {
+      return HttpResponse.json({ error: "admin_id_missing" }, { status: 401 });
+    }
     return HttpResponse.json(result);
   }),
-  http.get("/mock/admin/compliance-overview", async () => {
-    const result = await getAdminCompliance();
+  http.get("/mock/admin/compliance-overview", async ({ request }) => {
+    const adminId = request.headers.get("x-admin-id") ?? "";
+    const result = await getAdminCompliance(adminId);
+    if (!result) {
+      return HttpResponse.json({ error: "admin_id_missing" }, { status: 401 });
+    }
     return HttpResponse.json(result);
   }),
   http.get("/api/v1/guardians/:guardianId/appeals", async ({ params }) => {

@@ -7,7 +7,7 @@ const roleHomeMap: Record<RoleKey, string> = {
   student: "/student/home",
   teacher: "/teacher/dashboard",
   guardian: "/guardian/summary",
-  admin: "/admin/preflight"
+  admin: "/admin/dashboard"
 };
 
 export const useAuthStore = defineStore("auth", () => {

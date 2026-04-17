@@ -9,6 +9,7 @@ import TeacherInterventionCreatePage from "@/features/teacher/pages/TeacherInter
 import GuardianSummaryPage from "@/features/guardian/pages/GuardianSummaryPage.vue";
 import GuardianConsentsPage from "@/features/guardian/pages/GuardianConsentsPage.vue";
 import GuardianAppealsPage from "@/features/guardian/pages/GuardianAppealsPage.vue";
+import AdminDashboardPage from "@/features/admin/pages/AdminDashboardPage.vue";
 import AdminCompliancePage from "@/features/admin/pages/AdminCompliancePage.vue";
 import AdminAuditPage from "@/features/admin/pages/AdminAuditPage.vue";
 import AdminPreflightPage from "@/features/admin/pages/AdminPreflightPage.vue";
@@ -29,6 +30,7 @@ const routes = [
   { path: "/guardian/summary", component: GuardianSummaryPage, meta: { role: "guardian", title: "家长摘要" } },
   { path: "/guardian/consents", component: GuardianConsentsPage, meta: { role: "guardian", title: "家长同意" } },
   { path: "/guardian/appeals", component: GuardianAppealsPage, meta: { role: "guardian", title: "家长申诉" } },
+  { path: "/admin/dashboard", component: AdminDashboardPage, meta: { role: "admin", title: "管理员仪表盘" } },
   { path: "/admin/compliance", component: AdminCompliancePage, meta: { role: "admin", title: "管理员合规" } },
   { path: "/admin/audit", component: AdminAuditPage, meta: { role: "admin", title: "管理员审计" } },
   { path: "/admin/preflight", component: AdminPreflightPage, meta: { role: "admin", title: "管理员预检" } },
