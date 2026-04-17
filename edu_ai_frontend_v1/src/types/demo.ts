@@ -245,3 +245,48 @@ export interface AppealWriteResponse {
   last_updated_at: string;
   request_id: string;
 }
+
+export type ScoreStatus = "draft" | "released" | "disputed" | "corrected";
+
+export interface ScoreDimension {
+  dimension: string;
+  value: number;
+  confidence: number;
+  evidence_ref: string;
+}
+
+export interface StudentScoreRecord {
+  score_id: string;
+  student_token: string;
+  course_id: string;
+  generated_at: string;
+  status: ScoreStatus;
+  composite_score: number;
+  composite_confidence: number;
+  dimensions: readonly ScoreDimension[];
+  diagnostics: readonly string[];
+  added_to_record: boolean;
+  added_to_record_at?: string;
+  added_to_record_by?: string;
+}
+
+export interface StudentScoresResponse {
+  student_token: string;
+  range_days: number;
+  items: readonly StudentScoreRecord[];
+}
+
+export interface AdminScoringOverview {
+  generated_at: string;
+  total_scores: number;
+  released_count: number;
+  added_to_record_count: number;
+  items: readonly StudentScoreRecord[];
+}
+
+export interface ScoreAcceptResponse {
+  score_id: string;
+  added_to_record: boolean;
+  added_to_record_at: string;
+  request_id: string;
+}

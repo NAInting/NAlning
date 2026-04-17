@@ -1,8 +1,9 @@
-import { demoIds, studentMasteryByToken, studentProfileByToken } from "@/mocks/data/demo-data";
+import { demoIds, studentMasteryByToken, studentProfileByToken, studentScoresByToken } from "@/mocks/data/demo-data";
 import type {
   StudentAgentSessionResponse,
   StudentMasteryResponse,
-  StudentProfileResponse
+  StudentProfileResponse,
+  StudentScoresResponse
 } from "@/types/demo";
 
 export async function getStudentMastery(
@@ -50,4 +51,27 @@ export async function getStudentProfile(
   }
   const match = studentProfileByToken[studentToken as keyof typeof studentProfileByToken];
   return match ?? undefined;
+}
+
+const CONFIDENCE_THRESHOLD = 0.7;
+
+export async function getStudentScores(
+  studentToken: string
+): Promise<StudentScoresResponse | undefined> {
+  await Promise.resolve();
+  if (!studentToken) {
+    return undefined;
+  }
+  const match = studentScoresByToken[studentToken as keyof typeof studentScoresByToken];
+  if (!match) {
+    return undefined;
+  }
+  const visible = match.items.filter(
+    (item) => item.composite_confidence >= CONFIDENCE_THRESHOLD
+  );
+  return {
+    student_token: match.student_token,
+    range_days: match.range_days,
+    items: visible
+  };
 }

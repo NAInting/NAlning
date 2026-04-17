@@ -1,9 +1,11 @@
 import { http, HttpResponse } from "msw";
 
 import {
+  acceptScoreToRecord,
   advanceAppealState,
   getAdminCompliance,
   getAdminPreflight,
+  getAdminScoringOverview,
   getAppealQueue
 } from "@/features/admin/api";
 import {
@@ -13,7 +15,7 @@ import {
   getMyAppeals,
   withdrawConsent
 } from "@/features/guardian/api";
-import { createStudentAgentSession, getStudentMastery, getStudentProfile } from "@/features/student/api";
+import { createStudentAgentSession, getStudentMastery, getStudentProfile, getStudentScores } from "@/features/student/api";
 import { createIntervention, getTeacherDailyReport } from "@/features/teacher/api";
 
 export const handlers = [
@@ -122,6 +124,32 @@ export const handlers = [
     if (!result) {
       return HttpResponse.json(
         { error: "illegal_transition_or_missing_fields" },
+        { status: 422 }
+      );
+    }
+    return HttpResponse.json(result);
+  }),
+  http.get("/api/v1/students/:studentToken/scores", async ({ params }) => {
+    const result = await getStudentScores(String(params.studentToken));
+    if (!result) {
+      return HttpResponse.json({ error: "student_not_found" }, { status: 404 });
+    }
+    return HttpResponse.json(result);
+  }),
+  http.get("/mock/admin/scoring-overview", async ({ request }) => {
+    const adminId = request.headers.get("x-admin-id") ?? "";
+    const result = await getAdminScoringOverview(adminId);
+    if (!result) {
+      return HttpResponse.json({ error: "admin_id_missing" }, { status: 401 });
+    }
+    return HttpResponse.json(result);
+  }),
+  http.post("/api/v1/admin/scores/:scoreId/accept", async ({ params, request }) => {
+    const body = (await request.json()) as { admin_id: string };
+    const result = await acceptScoreToRecord(body.admin_id, String(params.scoreId));
+    if (!result) {
+      return HttpResponse.json(
+        { error: "score_not_eligible_or_already_accepted" },
         { status: 422 }
       );
     }

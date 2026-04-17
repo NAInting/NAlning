@@ -47,7 +47,8 @@ const routeMap = {
   student: [
     { path: "/student/home", label: "学生首页" },
     { path: "/student/agent", label: "学生陪学" },
-    { path: "/student/profile", label: "学生透明性" }
+    { path: "/student/profile", label: "学生透明性" },
+    { path: "/student/scores", label: "AI 评分" }
   ],
   teacher: [
     { path: "/teacher/dashboard", label: "教师总览" },
@@ -63,7 +64,8 @@ const routeMap = {
     { path: "/admin/compliance", label: "管理员合规" },
     { path: "/admin/audit", label: "管理员审计" },
     { path: "/admin/preflight", label: "管理员预检" },
-    { path: "/admin/appeals", label: "申诉队列" }
+    { path: "/admin/appeals", label: "申诉队列" },
+    { path: "/admin/scoring", label: "评分验收" }
   ]
 } as const;
 

@@ -379,6 +379,91 @@ export const appealQueueForAdmin = {
   ]
 } as const;
 
+export const studentScoresByToken = {
+  [demoIds.studentPrimary]: {
+    student_token: demoIds.studentPrimary,
+    range_days: 7,
+    items: [
+      {
+        score_id: "score_9f3a_001",
+        student_token: demoIds.studentPrimary,
+        course_id: demoIds.courseMath,
+        generated_at: "2026-04-12T10:05:00+08:00",
+        status: "released",
+        composite_score: 67.8,
+        composite_confidence: 0.82,
+        dimensions: [
+          { dimension: "knowledge_mastery", value: 76.5, confidence: 0.88, evidence_ref: "sum_demo_001" },
+          { dimension: "process_fluency", value: 72.0, confidence: 0.85, evidence_ref: "sum_demo_001" },
+          { dimension: "representation", value: 58.0, confidence: 0.76, evidence_ref: "sum_demo_001" },
+          { dimension: "ai_independence", value: 55.0, confidence: 0.79, evidence_ref: "sum_demo_001" },
+          { dimension: "reflection_quality", value: 69.0, confidence: 0.81, evidence_ref: "sum_demo_001" }
+        ],
+        diagnostics: [
+          "表征理解偏低：图像平移与公式对应关系仍易混淆。",
+          "AI 独立性偏低：需更多 No-AI 口头复述训练。"
+        ],
+        added_to_record: false
+      },
+      {
+        score_id: "score_9f3a_002",
+        student_token: demoIds.studentPrimary,
+        course_id: demoIds.courseMath,
+        generated_at: "2026-04-10T10:05:00+08:00",
+        status: "draft",
+        composite_score: 52.1,
+        composite_confidence: 0.61,
+        dimensions: [
+          { dimension: "knowledge_mastery", value: 68.0, confidence: 0.65, evidence_ref: "sum_demo_000" },
+          { dimension: "process_fluency", value: 60.0, confidence: 0.58, evidence_ref: "sum_demo_000" },
+          { dimension: "representation", value: 45.0, confidence: 0.55, evidence_ref: "sum_demo_000" },
+          { dimension: "ai_independence", value: 40.0, confidence: 0.62, evidence_ref: "sum_demo_000" },
+          { dimension: "reflection_quality", value: 47.5, confidence: 0.66, evidence_ref: "sum_demo_000" }
+        ],
+        diagnostics: [
+          "整体置信度不足 0.7，此评分不对外展示。"
+        ],
+        added_to_record: false
+      }
+    ]
+  },
+  [demoIds.studentSecondary]: {
+    student_token: demoIds.studentSecondary,
+    range_days: 7,
+    items: [
+      {
+        score_id: "score_2b71_001",
+        student_token: demoIds.studentSecondary,
+        course_id: demoIds.courseMath,
+        generated_at: "2026-04-12T10:05:00+08:00",
+        status: "released",
+        composite_score: 63.7,
+        composite_confidence: 0.78,
+        dimensions: [
+          { dimension: "knowledge_mastery", value: 63.0, confidence: 0.80, evidence_ref: "sum_demo_002" },
+          { dimension: "process_fluency", value: 58.5, confidence: 0.74, evidence_ref: "sum_demo_002" },
+          { dimension: "representation", value: 66.0, confidence: 0.82, evidence_ref: "sum_demo_002" },
+          { dimension: "ai_independence", value: 70.0, confidence: 0.77, evidence_ref: "sum_demo_002" },
+          { dimension: "reflection_quality", value: 61.5, confidence: 0.75, evidence_ref: "sum_demo_002" }
+        ],
+        diagnostics: [
+          "提示依赖频次偏高，一周内出现 3 次连追。",
+          "独立做题节奏稳定，建议增加复述练习。"
+        ],
+        added_to_record: false
+      }
+    ]
+  }
+} as const;
+
+export const adminByAdminId = {
+  admin_compliance_001: {
+    admin_id: "admin_compliance_001",
+    display_name: "合规管理员",
+    school_id: demoIds.schoolId
+  }
+} as const;
+
 export const adminPreflight = {
   pilot_id: "pilot_xsd_001",
   school_id: demoIds.schoolId,
