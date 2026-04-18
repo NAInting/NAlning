@@ -28,7 +28,7 @@ export async function getAdminPreflight(
   if (!adminId || !isKnownAdmin(adminId)) {
     return undefined;
   }
-  return adminPreflight;
+  return structuredClone(adminPreflight);
 }
 
 export async function getAdminCompliance(
@@ -38,7 +38,7 @@ export async function getAdminCompliance(
   if (!adminId || !isKnownAdmin(adminId)) {
     return undefined;
   }
-  return adminCompliance;
+  return structuredClone(adminCompliance);
 }
 
 export async function getAdminAuditPreview(
@@ -48,7 +48,7 @@ export async function getAdminAuditPreview(
   if (!adminId || !isKnownAdmin(adminId)) {
     return undefined;
   }
-  return adminAuditPreview;
+  return structuredClone(adminAuditPreview);
 }
 
 function isKnownAdmin(adminId: string): boolean {

@@ -14,7 +14,7 @@ export async function getStudentMastery(
     return undefined;
   }
   const match = studentMasteryByToken[studentToken as keyof typeof studentMasteryByToken];
-  return match ?? undefined;
+  return match ? structuredClone(match) : undefined;
 }
 
 export async function createStudentAgentSession(
@@ -50,7 +50,7 @@ export async function getStudentProfile(
     return undefined;
   }
   const match = studentProfileByToken[studentToken as keyof typeof studentProfileByToken];
-  return match ?? undefined;
+  return match ? structuredClone(match) : undefined;
 }
 
 const CONFIDENCE_THRESHOLD = 0.7;

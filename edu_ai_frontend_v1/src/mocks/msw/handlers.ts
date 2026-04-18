@@ -43,7 +43,7 @@ export const handlers = [
   http.post("/api/v1/interventions", async ({ request }) => {
     const body = (await request.json()) as {
       teacher_id: string;
-      student_token?: string;
+      student_token: string;
       linked_report_id?: string;
       intervention_level: string;
       trigger_type: string;

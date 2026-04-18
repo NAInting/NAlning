@@ -27,13 +27,13 @@ export async function getTeacherDailyReport(
   if (!teacherId || !isKnownTeacher(teacherId)) {
     return undefined;
   }
-  return teacherDailyReport;
+  return structuredClone(teacherDailyReport);
 }
 
 export async function createIntervention(
   teacherId: string,
   payload: {
-    student_token?: string;
+    student_token: string;
     linked_report_id?: string;
     intervention_level: string;
     trigger_type: string;
@@ -45,7 +45,10 @@ export async function createIntervention(
   if (!teacherId || !isKnownTeacher(teacherId)) {
     return undefined;
   }
-  if (payload.student_token && !teacherOwnsStudent(teacherId, payload.student_token)) {
+  if (!payload.student_token) {
+    return undefined;
+  }
+  if (!teacherOwnsStudent(teacherId, payload.student_token)) {
     return undefined;
   }
   return {
@@ -69,5 +72,5 @@ export async function getTeacherStudentDetail(
   }
   const match =
     teacherStudentDetailByToken[studentToken as keyof typeof teacherStudentDetailByToken];
-  return match ? (match as TeacherStudentDetailViewModel) : undefined;
+  return match ? structuredClone(match as TeacherStudentDetailViewModel) : undefined;
 }
