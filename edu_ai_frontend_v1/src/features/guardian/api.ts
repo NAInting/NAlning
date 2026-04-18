@@ -22,7 +22,7 @@ export async function getGuardianSummary(
   }
   const match =
     guardianSummaryByGuardianId[guardianId as keyof typeof guardianSummaryByGuardianId];
-  return match ? (match as GuardianSummaryViewModel) : undefined;
+  return match ? structuredClone(match as GuardianSummaryViewModel) : undefined;
 }
 
 export async function getConsentStatus(
@@ -36,7 +36,7 @@ export async function getConsentStatus(
     guardianConsentStatusByGuardianId[
       guardianId as keyof typeof guardianConsentStatusByGuardianId
     ];
-  return match ? (match as ConsentStatusResponse) : undefined;
+  return match ? structuredClone(match as ConsentStatusResponse) : undefined;
 }
 
 export async function createConsent(
@@ -115,7 +115,7 @@ export async function getMyAppeals(
   }
   const match =
     appealsByGuardianId[guardianId as keyof typeof appealsByGuardianId];
-  return match ? (match as AppealListResponse) : undefined;
+  return match ? structuredClone(match as AppealListResponse) : undefined;
 }
 
 export async function createAppeal(
