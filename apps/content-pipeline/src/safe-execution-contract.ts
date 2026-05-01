@@ -57,6 +57,14 @@ export type SafeExecutionInvariantCode =
   | "empty_transition_source_states"
   | "empty_required_source_schema_versions"
   | "empty_output_schema_version"
+  | "source_chain_empty"
+  | "source_chain_length_mismatch"
+  | "source_chain_link_key_mismatch"
+  | "source_chain_schema_version_not_allowed"
+  | "source_chain_state_not_allowed"
+  | "source_chain_invalid_link"
+  | "source_chain_blocked_link_not_allowed"
+  | "source_chain_untrusted_metadata_not_cleared"
   | "provider_spend_requires_human_decision"
   | "source_writeback_requires_human_decision"
   | "unknown_failure_behavior"
@@ -88,6 +96,14 @@ const KNOWN_SAFE_EXECUTION_INVARIANT_CODES = new Set<string>([
   "empty_transition_source_states",
   "empty_required_source_schema_versions",
   "empty_output_schema_version",
+  "source_chain_empty",
+  "source_chain_length_mismatch",
+  "source_chain_link_key_mismatch",
+  "source_chain_schema_version_not_allowed",
+  "source_chain_state_not_allowed",
+  "source_chain_invalid_link",
+  "source_chain_blocked_link_not_allowed",
+  "source_chain_untrusted_metadata_not_cleared",
   "provider_spend_requires_human_decision",
   "source_writeback_requires_human_decision",
   "unknown_failure_behavior",
@@ -134,6 +150,30 @@ export interface SafeExecutionInvariantResult {
   error_count: number;
   warning_count: number;
   issues: SafeExecutionInvariantIssue[];
+}
+
+export interface SafeExecutionSourceChainLinkSpec {
+  link_key: string;
+  accepted_schema_versions: string[];
+  allowed_states: SafeExecutionState[];
+  allow_blocked: boolean;
+  requires_valid_source: boolean;
+  must_clear_untrusted_downstream_metadata: boolean;
+}
+
+export interface SafeExecutionSourceChainSpec {
+  links: SafeExecutionSourceChainLinkSpec[];
+}
+
+export interface SafeExecutionSourceChainLink {
+  link_key: string;
+  schema_version: string;
+  state: SafeExecutionState;
+  source_valid: boolean;
+  blocked: boolean;
+  contains_untrusted_downstream_metadata?: boolean;
+  untrusted_downstream_metadata_cleared?: boolean;
+  audit_safe_fields?: string[];
 }
 
 export interface SafeExecutionTransitionArtifact {
@@ -282,6 +322,94 @@ export function validateSafeExecutionTransitionSpec(
   }
 
   issues.push(...findUnsafeAuditFieldIssues(spec.audit_safe_fields, "audit_safe_fields"));
+
+  return buildResult(issues);
+}
+
+export function validateSafeExecutionSourceChain(
+  chain: readonly SafeExecutionSourceChainLink[],
+  spec: SafeExecutionSourceChainSpec
+): SafeExecutionInvariantResult {
+  const issues: SafeExecutionInvariantIssue[] = [];
+
+  if (chain.length === 0) {
+    issues.push(errorIssue(
+      "source_chain_empty",
+      "source_chain",
+      "Safe execution source chain must contain at least one source link."
+    ));
+  }
+
+  if (chain.length !== spec.links.length) {
+    issues.push(errorIssue(
+      "source_chain_length_mismatch",
+      "source_chain",
+      `Safe execution source chain has ${chain.length} links but expected ${spec.links.length}.`
+    ));
+  }
+
+  chain.forEach((link, index) => {
+    const expectedLink = spec.links[index];
+    const path = `source_chain.${index}`;
+
+    if (!expectedLink) {
+      return;
+    }
+
+    if (link.link_key !== expectedLink.link_key) {
+      issues.push(errorIssue(
+        "source_chain_link_key_mismatch",
+        `${path}.link_key`,
+        `Safe execution source chain link ${index} has key ${link.link_key} but expected ${expectedLink.link_key}.`
+      ));
+    }
+
+    if (!expectedLink.accepted_schema_versions.includes(link.schema_version)) {
+      issues.push(errorIssue(
+        "source_chain_schema_version_not_allowed",
+        `${path}.schema_version`,
+        `Safe execution source chain link ${link.link_key} has unsupported schema version ${link.schema_version}.`
+      ));
+    }
+
+    if (!expectedLink.allowed_states.includes(link.state)) {
+      issues.push(errorIssue(
+        "source_chain_state_not_allowed",
+        `${path}.state`,
+        `Safe execution source chain link ${link.link_key} has state ${link.state}, which is not allowed here.`
+      ));
+    }
+
+    if (expectedLink.requires_valid_source && !link.source_valid) {
+      issues.push(errorIssue(
+        "source_chain_invalid_link",
+        `${path}.source_valid`,
+        `Safe execution source chain link ${link.link_key} is invalid and cannot be trusted by this transition.`
+      ));
+    }
+
+    if (!expectedLink.allow_blocked && link.blocked) {
+      issues.push(errorIssue(
+        "source_chain_blocked_link_not_allowed",
+        `${path}.blocked`,
+        `Safe execution source chain link ${link.link_key} is blocked but this chain position requires an unblocked source.`
+      ));
+    }
+
+    if (
+      expectedLink.must_clear_untrusted_downstream_metadata &&
+      link.contains_untrusted_downstream_metadata === true &&
+      link.untrusted_downstream_metadata_cleared !== true
+    ) {
+      issues.push(errorIssue(
+        "source_chain_untrusted_metadata_not_cleared",
+        `${path}.untrusted_downstream_metadata_cleared`,
+        `Safe execution source chain link ${link.link_key} contains untrusted downstream metadata that must be cleared.`
+      ));
+    }
+
+    issues.push(...findUnsafeAuditFieldIssues(link.audit_safe_fields ?? [], `${path}.audit_safe_fields`));
+  });
 
   return buildResult(issues);
 }

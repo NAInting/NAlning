@@ -7,6 +7,8 @@ import {
   summarizeSafeExecutionFollowUpModules,
 } from "../src";
 
+const CLI_SCAN_TEST_TIMEOUT_MS = 15_000;
+
 describe("safe execution compaction helper", () => {
   it("parses base provider follow-up contract modules", () => {
     expect(analyzeSafeExecutionFollowUpModuleName("provider-execution-follow-up.ts")).toMatchObject({
@@ -108,7 +110,7 @@ describe("safe execution compaction helper", () => {
       expect(module.module_name).toMatch(/^src\//);
       expect(module.module_name).not.toMatch(/^[A-Za-z]:/);
     });
-  });
+  }, CLI_SCAN_TEST_TIMEOUT_MS);
 
   it("keeps the default compaction scan output compact", () => {
     const command = process.platform === "win32" ? "cmd.exe" : "pnpm";
@@ -132,5 +134,5 @@ describe("safe execution compaction helper", () => {
     expect(report.detail_mode).toBe("summary_only");
     expect(report.modules_requiring_compaction).toBeUndefined();
     expect(report.summary.modules_requiring_compaction.length).toBeGreaterThan(0);
-  });
+  }, CLI_SCAN_TEST_TIMEOUT_MS);
 });

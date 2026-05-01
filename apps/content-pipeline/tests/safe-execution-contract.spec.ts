@@ -1,12 +1,17 @@
 import { describe, expect, it } from "vitest";
 
-import type { SafeExecutionSourceContext, SafeExecutionTransitionSpec } from "../src";
+import type {
+  SafeExecutionSourceChainSpec,
+  SafeExecutionSourceContext,
+  SafeExecutionTransitionSpec,
+} from "../src";
 import {
   buildSafeExecutionTransitionArtifact,
   clearUntrustedDownstreamMetadataOnInvalidSource,
   deriveStableOperationKey,
   renderManualTriagePayload,
   shouldClearUntrustedDownstreamMetadata,
+  validateSafeExecutionSourceChain,
   validateSafeExecutionTransition,
   validateSafeExecutionTransitionArtifact,
   validateSafeExecutionTransitionSpec,
@@ -35,6 +40,27 @@ describe("safe execution contract", () => {
     apply_approved: false,
   };
 
+  const sourceChainSpec: SafeExecutionSourceChainSpec = {
+    links: [
+      {
+        link_key: "review_artifact",
+        accepted_schema_versions: ["content-pipeline-review-artifact/v0.1"],
+        allowed_states: ["blocked"],
+        allow_blocked: true,
+        requires_valid_source: true,
+        must_clear_untrusted_downstream_metadata: false,
+      },
+      {
+        link_key: "repair_request",
+        accepted_schema_versions: ["content-pipeline-repair-request/v0.1"],
+        allowed_states: ["repair_required"],
+        allow_blocked: false,
+        requires_valid_source: true,
+        must_clear_untrusted_downstream_metadata: true,
+      },
+    ],
+  };
+
   it("accepts a no-spend repair transition from a blocked review artifact", () => {
     const result = validateSafeExecutionTransition(baseSource, baseSpec);
 
@@ -43,6 +69,132 @@ describe("safe execution contract", () => {
       error_count: 0,
       warning_count: 0,
     });
+  });
+
+  it("accepts a valid safe execution source chain", () => {
+    const result = validateSafeExecutionSourceChain(
+      [
+        {
+          link_key: "review_artifact",
+          schema_version: "content-pipeline-review-artifact/v0.1",
+          state: "blocked",
+          source_valid: true,
+          blocked: true,
+          audit_safe_fields: ["unit_id", "artifact_status"],
+        },
+        {
+          link_key: "repair_request",
+          schema_version: "content-pipeline-repair-request/v0.1",
+          state: "repair_required",
+          source_valid: true,
+          blocked: false,
+          contains_untrusted_downstream_metadata: true,
+          untrusted_downstream_metadata_cleared: true,
+          audit_safe_fields: ["unit_id", "issue_codes"],
+        },
+      ],
+      sourceChainSpec
+    );
+
+    expect(result).toMatchObject({
+      ok: true,
+      error_count: 0,
+      warning_count: 0,
+    });
+  });
+
+  it("fails safe execution source chains closed when links drift from the expected contract", () => {
+    const result = validateSafeExecutionSourceChain(
+      [
+        {
+          link_key: "review_artifact",
+          schema_version: "content-pipeline-review-artifact/v9.9",
+          state: "executed",
+          source_valid: false,
+          blocked: true,
+        },
+        {
+          link_key: "provider_receipt",
+          schema_version: "content-pipeline-repair-request/v0.1",
+          state: "repair_required",
+          source_valid: true,
+          blocked: true,
+          contains_untrusted_downstream_metadata: true,
+        },
+      ],
+      sourceChainSpec
+    );
+
+    expect(result.ok).toBe(false);
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "source_chain_schema_version_not_allowed" }),
+        expect.objectContaining({ code: "source_chain_state_not_allowed" }),
+        expect.objectContaining({ code: "source_chain_invalid_link" }),
+        expect.objectContaining({ code: "source_chain_link_key_mismatch" }),
+        expect.objectContaining({ code: "source_chain_blocked_link_not_allowed" }),
+        expect.objectContaining({ code: "source_chain_untrusted_metadata_not_cleared" }),
+      ])
+    );
+  });
+
+  it("rejects empty or truncated safe execution source chains", () => {
+    const emptyResult = validateSafeExecutionSourceChain([], sourceChainSpec);
+    const truncatedResult = validateSafeExecutionSourceChain(
+      [
+        {
+          link_key: "review_artifact",
+          schema_version: "content-pipeline-review-artifact/v0.1",
+          state: "blocked",
+          source_valid: true,
+          blocked: true,
+        },
+      ],
+      sourceChainSpec
+    );
+
+    expect(emptyResult.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "source_chain_empty" }),
+        expect.objectContaining({ code: "source_chain_length_mismatch" }),
+      ])
+    );
+    expect(truncatedResult.issues).toContainEqual(
+      expect.objectContaining({ code: "source_chain_length_mismatch" })
+    );
+  });
+
+  it("blocks unsafe audit fields inside safe execution source chains", () => {
+    const result = validateSafeExecutionSourceChain(
+      [
+        {
+          link_key: "review_artifact",
+          schema_version: "content-pipeline-review-artifact/v0.1",
+          state: "blocked",
+          source_valid: true,
+          blocked: true,
+          audit_safe_fields: ["unit_id", "raw_model_output"],
+        },
+        {
+          link_key: "repair_request",
+          schema_version: "content-pipeline-repair-request/v0.1",
+          state: "repair_required",
+          source_valid: true,
+          blocked: false,
+          untrusted_downstream_metadata_cleared: true,
+          audit_safe_fields: ["issue_codes", "\u5b66\u751f\u8bed\u97f3\u8f6c\u5199"],
+        },
+      ],
+      sourceChainSpec
+    );
+
+    expect(result.ok).toBe(false);
+    expect(result.issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "unsafe_audit_field", path: "source_chain.0.audit_safe_fields.1" }),
+        expect.objectContaining({ code: "unsafe_audit_field", path: "source_chain.1.audit_safe_fields.1" }),
+      ])
+    );
   });
 
   it("builds a machine-readable transition artifact only after validation passes", () => {
