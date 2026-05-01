@@ -1,0 +1,83 @@
+{
+  "schema_version": "content-pipeline-review-artifact/v0.1",
+  "mode": "llm_review_no_writeback",
+  "generated_at": "2026-04-25T10:00:00.000Z",
+  "unit_id": "math_g8_linear_function_intro",
+  "status": "blocked",
+  "writeback_performed": false,
+  "semantic_validation": {
+    "passed": false,
+    "error_count": 1,
+    "warning_count": 0,
+    "issues": [
+      {
+        "severity": "error",
+        "code": "unknown_node_reference",
+        "path": "assessment.items[0].target_nodes[0]",
+        "message": "Referenced knowledge node \"lf_slope_meaning\" is not defined."
+      }
+    ]
+  },
+  "repair_plan": {
+    "source": "semantic_validation",
+    "recommended_rerun_from": "subject_expert",
+    "recommended_rerun_roles": [
+      "subject_expert",
+      "pedagogy_designer",
+      "narrative_designer",
+      "engineering_agent",
+      "assessment_designer",
+      "qa_agent"
+    ],
+    "recommendations": [
+      {
+        "trigger": "unknown_node_reference at assessment.items[0].target_nodes[0]",
+        "root_owner": "subject_expert",
+        "impacted_owner": "assessment_designer",
+        "rerun_from": "subject_expert",
+        "rerun_roles": [
+          "subject_expert",
+          "pedagogy_designer",
+          "narrative_designer",
+          "engineering_agent",
+          "assessment_designer",
+          "qa_agent"
+        ],
+        "reason": "The knowledge patch changed node anchors and stranded downstream references at assessment.items[0].target_nodes[0]. Regenerate from subject_expert so dependent sections share the same node graph."
+      }
+    ]
+  },
+  "retry_policy": {
+    "decision": "allow_scoped_rerun",
+    "reason": "First blocked artifact in current scope.",
+    "recommended_rerun_from": "subject_expert",
+    "recommended_rerun_roles": [
+      "subject_expert",
+      "pedagogy_designer",
+      "narrative_designer",
+      "engineering_agent",
+      "assessment_designer",
+      "qa_agent"
+    ]
+  },
+  "workflow_runs": [],
+  "invocation_logs": [],
+  "candidate_patches": [
+    {
+      "role": "subject_expert",
+      "patch_sections": ["knowledge"],
+      "patch": {
+        "knowledge": {
+          "nodes": [],
+          "edges": []
+        }
+      },
+      "diff": [
+        {
+          "path": "knowledge.nodes[0].node_id",
+          "change_type": "changed"
+        }
+      ]
+    }
+  ]
+}

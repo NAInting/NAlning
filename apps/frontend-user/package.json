@@ -1,0 +1,28 @@
+{
+  "name": "@edu-ai/frontend-user",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "clean": "node -e \"const fs=require('fs'); for (const p of ['dist','.turbo']) fs.rmSync(p,{recursive:true,force:true});\"",
+    "lint": "vue-tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@edu-ai/agent-sdk": "workspace:*",
+    "@edu-ai/privacy-filter": "workspace:*",
+    "@edu-ai/shared-types": "workspace:*",
+    "vue": "^3.5.18"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.1.1"
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "graph_id": "math_g8_s1_linear_function_concept",
+  "status": "draft_for_subject_review",
+  "subject": "math",
+  "grade": "g8",
+  "unit": {
+    "alias": "linear_function_concept",
+    "runtime_id": "fad33458-dd18-4c5f-9958-c8c90d60893b",
+    "title": "一次函数的概念",
+    "description": "围绕一次函数 y = kx + b 的概念形成、多表征理解和简单情境建模建立 MVP 知识图谱。",
+    "duration_hours": 5,
+    "standard_alignments": [
+      {
+        "standard_system": "义务教育数学课程标准（2022年版）",
+        "standard_code": "G8-FUNC-DRAFT-UNIT",
+        "description": "理解一次函数的概念、表示和简单应用；待学科顾问核对精确条目。"
+      }
+    ],
+    "prerequisite_unit_aliases": [],
+    "prerequisite_node_aliases": [],
+    "knowledge_node_aliases": [
+      "lf_variable_relation",
+      "lf_function_view",
+      "lf_linear_expression",
+      "lf_slope_meaning",
+      "lf_intercept_meaning",
+      "lf_table_to_expression",
+      "lf_expression_to_graph",
+      "lf_graph_to_expression",
+      "lf_context_modeling",
+      "lf_representation_consistency"
+    ],
+    "learning_path_id": "3ea16bda-55e2-4b23-8de1-ef906d0ce912",
+    "scenario_ids": [],
+    "assessment_ids": ["fc76ec4e-cb9b-4ecd-9482-1f83120bdccb"],
+    "production_metadata": {
+      "curriculum_agent_version": "manual-draft-0.1",
+      "pedagogy_agent_version": "manual-draft-0.1",
+      "narrative_agent_version": "manual-draft-0.1",
+      "engineering_agent_version": "manual-draft-0.1",
+      "qa_agent_version": "manual-draft-0.1",
+      "iteration_count": 0,
+      "total_cost_tokens": 0,
+      "total_cost_cny": 0,
+      "qa_pass": false,
+      "qa_issues": ["pending_subject_advisor_review"]
+    },
+    "status": "draft",
+    "generated_by_agents": false,
+    "human_reviewers": [],
+    "human_review_status": "pending_subject_advisor_review"
+  },
+  "learning_path": {
+    "runtime_id": "3ea16bda-55e2-4b23-8de1-ef906d0ce912",
+    "steps": [
+      {
+        "step_id": "bec67224-35c6-4653-9f0e-3c7993017747",
+        "order": 1,
+        "target_aliases": ["lf_variable_relation", "lf_function_view"],
+        "activity_type": "scenario",
+        "pedagogy": "scenario_immersion",
+        "estimated_duration_minutes": 35,
+        "completion_criteria": {
+          "type": "reflection_based",
+          "threshold": 0.7
+        }
+      },
+      {
+        "step_id": "fe82e2fd-f20b-4646-b758-c7ddf94b07b6",
+        "order": 2,
+        "target_aliases": ["lf_linear_expression"],
+        "activity_type": "dialogue",
+        "pedagogy": "socratic_dialogue",
+        "estimated_duration_minutes": 30,
+        "completion_criteria": {
+          "type": "mastery_based",
+          "threshold": 0.7
+        }
+      },
+      {
+        "step_id": "260d2327-e7ba-4b91-87f9-d8c142751276",
+        "order": 3,
+        "target_aliases": ["lf_slope_meaning", "lf_intercept_meaning"],
+        "activity_type": "exercise",
+        "pedagogy": "direct_instruction",
+        "estimated_duration_minutes": 45,
+        "assessment_id": "fc76ec4e-cb9b-4ecd-9482-1f83120bdccb",
+        "completion_criteria": {
+          "type": "mastery_based",
+          "threshold": 0.7
+        }
+      },
+      {
+        "step_id": "da5fd8c5-572e-4296-80f1-021a24dc10c7",
+        "order": 4,
+        "target_aliases": ["lf_table_to_expression", "lf_expression_to_graph", "lf_graph_to_expression"],
+        "activity_type": "exercise",
+        "pedagogy": "problem_based",
+        "estimated_duration_minutes": 55,
+        "assessment_id": "fc76ec4e-cb9b-4ecd-9482-1f83120bdccb",
+        "completion_criteria": {
+          "type": "mastery_based",
+          "threshold": 0.7
+        }
+      },
+      {
+        "step_id": "9b38368a-5360-42e1-b0e3-05cf8509304a",
+        "order": 5,
+        "target_aliases": ["lf_context_modeling"],
+        "activity_type": "project",
+        "pedagogy": "problem_based",
+        "estimated_duration_minutes": 50,
+        "assessment_id": "fc76ec4e-cb9b-4ecd-9482-1f83120bdccb",
+        "completion_criteria": {
+          "type": "submission_based",
+          "threshold": 1
+        }
+      },
+      {
+        "step_id": "be665dc1-ce91-437f-9fcd-2169eac66005",
+        "order": 6,
+        "target_aliases": ["lf_representation_consistency"],
+        "activity_type": "reflection",
+        "pedagogy": "metacognitive_reflection",
+        "estimated_duration_minutes": 35,
+        "assessment_id": "fc76ec4e-cb9b-4ecd-9482-1f83120bdccb",
+        "completion_criteria": {
+          "type": "reflection_based",
+          "threshold": 0.7
+        }
+      }
+    ]
+  },
+  "assessment": {
+    "runtime_id": "fc76ec4e-cb9b-4ecd-9482-1f83120bdccb",
+    "title": "一次函数概念形成性诊断",
+    "target_aliases": [
+      "lf_variable_relation",
+      "lf_function_view",
+      "lf_linear_expression",
+      "lf_slope_meaning",
+      "lf_intercept_meaning",
+      "lf_table_to_expression",
+      "lf_expression_to_graph",
+      "lf_graph_to_expression",
+      "lf_context_modeling",
+      "lf_representation_consistency"
+    ],
+    "type": "formative",
+    "scoring_strategy": {
+      "method": "hybrid",
+      "mastery_threshold": 0.7,
+      "requires_human_review": true
+    },
+    "min_confidence_threshold": 0.7,
+    "items_source": "nodes.formative_probe",
+    "mechanical_pass_rule": "每个 formative_probe 必须有 item_id、question、expected_signal、diagnostic_hints，并能映射到一个 node alias。开放解释题默认需要人工审阅或回归样例。"
+  },
+  "nodes": [
+    {
+      "alias": "lf_variable_relation",
+      "runtime_id": "cd3bf8be-b5e9-4822-9041-6ed1dfe3484d",
+      "title": "变量关系",
+      "description": "判断两个量之间是否存在确定对应关系，是理解函数的入口。",
+      "prerequisites": [],
+      "related": ["lf_function_view", "lf_context_modeling"],
+      "mastery_criteria": ["能用自己的话说明一个量变化时另一个量是否有确定对应", "能举出一个有确定对应和一个没有确定对应的例子"],
+      "difficulty": 1,
+      "estimated_learning_minutes": 25,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-01",
+          "description": "理解变量之间的对应关系，能用函数观点分析简单实际问题；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "把任意两个同时出现的量都看成函数关系。",
+          "example": "认为“今天温度”和“作业页数”天然有关。",
+          "correction_strategy": "要求学生说明一个量变化时另一个量是否有确定对应。"
+        },
+        {
+          "description": "只关注量是否变化，忽略对应是否唯一。",
+          "example": "同一个 x 可能对应多个 y 时仍说它是函数。",
+          "correction_strategy": "用“一位同学对应一个座位”类比唯一对应。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "fc1965d1-6f8f-44fe-81a8-cb0eeb9d26d1",
+        "question": "判断“出租车行驶里程”和“车费”是否可能形成确定对应，并说明理由。",
+        "expected_signal": "能指出在规则固定时，一个里程对应一个车费。",
+        "diagnostic_hints": ["若只说两个量都会变，引导其说明对应规则是否确定。"]
+      },
+      "mentor_prompt": "先别急着写式子。你能说说这里哪个量在变，另一个量是不是被它确定了吗？"
+    },
+    {
+      "alias": "lf_function_view",
+      "runtime_id": "e1a068d8-67b1-4205-9b2b-6dbb69564a43",
+      "title": "函数视角",
+      "description": "把变量关系看成输入、输出和对应规则的整体。",
+      "prerequisites": ["lf_variable_relation"],
+      "related": ["lf_linear_expression"],
+      "mastery_criteria": ["能区分自变量、因变量和对应规则", "能用输入输出语言描述简单函数关系"],
+      "difficulty": 2,
+      "estimated_learning_minutes": 30,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-02",
+          "description": "从函数角度认识变量之间的关系；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "把函数理解成必须有公式。",
+          "example": "看到表格或图像时说“没有函数”。",
+          "correction_strategy": "让学生用表格中的输入输出对应说明函数也可以不用公式呈现。"
+        },
+        {
+          "description": "混淆自变量和因变量。",
+          "example": "在路程随时间变化问题中把路程当作自变量。",
+          "correction_strategy": "追问“你先选择哪个量，另一个量跟着变化？”"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "b9a3e5ed-caa7-47d4-8c59-d6f107a65aaf",
+        "question": "在“水桶注水，水深随时间变化”中，说出输入、输出和对应规则。",
+        "expected_signal": "能说出时间是输入，水深是输出，并解释水深随时间变化。",
+        "diagnostic_hints": ["若学生只说“水变多”，引导其补充哪个量被主动选择。"]
+      },
+      "mentor_prompt": "如果把这个问题看成“我给一个输入，系统给一个输出”，你会把哪个量放在输入的位置？"
+    },
+    {
+      "alias": "lf_linear_expression",
+      "runtime_id": "6e230121-8789-4e68-880d-0ce1ea8f87c4",
+      "title": "一次函数表达式",
+      "description": "识别并解释一次函数通常形如 y = kx + b，其中 k 不为 0。",
+      "prerequisites": ["lf_function_view"],
+      "related": ["lf_slope_meaning", "lf_intercept_meaning"],
+      "mastery_criteria": ["能识别 y = kx + b 的结构", "能说明 k 不为 0 的原因"],
+      "difficulty": 2,
+      "estimated_learning_minutes": 35,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-03",
+          "description": "理解一次函数表达式及其基本形式；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "认为只要含 x 和 y 就是一次函数。",
+          "example": "把 y = x^2 + 1 判断为一次函数。",
+          "correction_strategy": "让学生检查 x 的次数，并比较变化是否保持固定增量。"
+        },
+        {
+          "description": "忽略 k 不为 0。",
+          "example": "把 y = 3 判断为一次函数。",
+          "correction_strategy": "追问 x 改变时 y 是否真的随之改变。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "f50e8361-e6a3-40e3-ad74-3c5e9d25fb16",
+        "question": "判断 y = 2x + 3、y = x^2、y = 5 哪些是一次函数，并说明理由。",
+        "expected_signal": "能指出 y = 2x + 3 是一次函数，排除二次和常数函数。",
+        "diagnostic_hints": ["若学生只看是否有 x，引导其检查 x 的次数和 k 是否为 0。"]
+      },
+      "mentor_prompt": "你先只盯住 x：它是一次方吗？前面的系数会不会让 y 真正跟着 x 变？"
+    },
+    {
+      "alias": "lf_slope_meaning",
+      "runtime_id": "5fb2c9bc-b5a5-4511-8c41-0103e802a913",
+      "title": "斜率 k 的意义",
+      "description": "理解 k 表示 x 每增加 1 时 y 的变化量，也影响图像倾斜方向和陡峭程度。",
+      "prerequisites": ["lf_linear_expression"],
+      "related": ["lf_expression_to_graph", "lf_table_to_expression"],
+      "mastery_criteria": ["能解释 k 的正负和大小对图像的影响", "能从固定增量中判断 k"],
+      "difficulty": 3,
+      "estimated_learning_minutes": 40,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-04",
+          "description": "理解一次函数中系数与图像变化的关系；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "把 k 当作图像与 y 轴的交点。",
+          "example": "看到 y = 2x + 3 时说图像过 (0,2)。",
+          "correction_strategy": "分别代入 x = 0 和 x 增加 1，比较 b 与 k 的作用。"
+        },
+        {
+          "description": "认为 k 越大图像越高，而不是越陡。",
+          "example": "比较 y = 2x 和 y = 5x 时只说后者整体更高。",
+          "correction_strategy": "固定同一个 x 增量，观察 y 的变化量。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "5de42e3e-61b5-4dd1-9682-f91e3c295e43",
+        "question": "对 y = -2x + 5，说明 x 每增加 1 时 y 怎么变，图像大致向哪个方向倾斜。",
+        "expected_signal": "能说出 y 减少 2，图像从左上到右下。",
+        "diagnostic_hints": ["若学生说“向上”，让其代入 x = 0 和 x = 1 比较。"]
+      },
+      "mentor_prompt": "你先不看整条线。只看 x 从 0 走到 1，y 跟着走了几步？"
+    },
+    {
+      "alias": "lf_intercept_meaning",
+      "runtime_id": "533280a0-8403-42f3-b8c1-c968e58bce2b",
+      "title": "截距 b 的意义",
+      "description": "理解 b 是 x = 0 时 y 的值，常表示初始量或图像与 y 轴交点。",
+      "prerequisites": ["lf_linear_expression"],
+      "related": ["lf_expression_to_graph", "lf_context_modeling"],
+      "mastery_criteria": ["能解释 b 在表达式和图像中的意义", "能在情境中识别初始值"],
+      "difficulty": 3,
+      "estimated_learning_minutes": 35,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-05",
+          "description": "理解一次函数常数项与图像、情境初始值的关系；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "把 b 当作 x 轴截距。",
+          "example": "看到 y = 2x + 3 时认为图像过 (3,0)。",
+          "correction_strategy": "让学生代入 x = 0，观察得到的 y 值。"
+        },
+        {
+          "description": "在情境中忽略初始值。",
+          "example": "出租车起步价问题中只写每公里费用。",
+          "correction_strategy": "追问“还没走的时候已经有多少？”"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "59011641-f102-4691-b399-6743966adf3e",
+        "question": "某停车场收费 y = 4x + 6，说明 6 在情境和图像中分别代表什么。",
+        "expected_signal": "能说出 6 是起步费用，也是图像与 y 轴交点的纵坐标。",
+        "diagnostic_hints": ["若学生说是走了 6 小时，引导其代入 x = 0。"]
+      },
+      "mentor_prompt": "假设 x 是 0，事情还没开始时 y 已经是多少？这和图像上的哪个点有关？"
+    },
+    {
+      "alias": "lf_table_to_expression",
+      "runtime_id": "9ed197a9-9026-40d3-a828-6c1a0c71848e",
+      "title": "表格到表达式",
+      "description": "从表格中识别固定变化量和初始值，写出一次函数表达式。",
+      "prerequisites": ["lf_slope_meaning", "lf_intercept_meaning"],
+      "related": ["lf_graph_to_expression"],
+      "mastery_criteria": ["能从等步长表格中求 k", "能用已知点求 b 并写出表达式"],
+      "difficulty": 3,
+      "estimated_learning_minutes": 45,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-06",
+          "description": "能从表格等表示中分析一次函数关系；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "只看 y 的变化量，不除以 x 的变化量。",
+          "example": "x 每次增加 2，y 增加 6，却把 k 写成 6。",
+          "correction_strategy": "强调 k 是 y 的变化量除以 x 的变化量。"
+        },
+        {
+          "description": "误把表格第一行 y 当作 b。",
+          "example": "表格从 x = 2 开始时直接把对应 y 当作截距。",
+          "correction_strategy": "引导学生反推 x = 0 时的 y。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "ab0965b3-7607-4ee1-ab09-b23030455998",
+        "question": "表格给出 (2,7)、(4,11)、(6,15)，写出一次函数表达式。",
+        "expected_signal": "能算出 k = 2，再代入点求 b = 3，得到 y = 2x + 3。",
+        "diagnostic_hints": ["若学生写 k = 4，引导其比较 x 的变化量也是 2。"]
+      },
+      "mentor_prompt": "先看两行之间 x 走了几步、y 走了几步。k 是这两个“步数”的什么关系？"
+    },
+    {
+      "alias": "lf_expression_to_graph",
+      "runtime_id": "c545574e-6ef5-467b-9180-5808b9b33d7e",
+      "title": "表达式到图像",
+      "description": "根据 k 和 b 画出或判断一次函数图像的关键特征。",
+      "prerequisites": ["lf_slope_meaning", "lf_intercept_meaning"],
+      "related": ["lf_graph_to_expression", "lf_representation_consistency"],
+      "mastery_criteria": ["能用 b 定位 y 轴交点", "能用 k 判断图像方向和陡峭程度"],
+      "difficulty": 3,
+      "estimated_learning_minutes": 45,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-07",
+          "description": "理解一次函数表达式与图像之间的联系；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "只通过代点机械作图，不解释 k 和 b。",
+          "example": "能画点但说不出为什么图像上升。",
+          "correction_strategy": "先让学生口头预测方向和截距，再验证。"
+        },
+        {
+          "description": "把 k 和 b 的作用交换。",
+          "example": "用 k 找 y 轴交点，用 b 判断倾斜。",
+          "correction_strategy": "用同一个 b 不同 k、同一个 k 不同 b 的对比图。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "2c1a1ceb-05c9-4738-9420-4044c2d3fd1d",
+        "question": "不精确作图，判断 y = 3x - 2 的图像与 y 轴交点和倾斜方向。",
+        "expected_signal": "能说出交点 (0,-2)，图像从左下到右上且较陡。",
+        "diagnostic_hints": ["若学生先画很多点，引导其直接解释 k 和 b 的作用。"]
+      },
+      "mentor_prompt": "如果只允许你看 k 和 b，不画很多点，你能先预测这条线会怎么站在坐标系里吗？"
+    },
+    {
+      "alias": "lf_graph_to_expression",
+      "runtime_id": "48fa1bfe-37d9-4b64-94f7-7afe551f8d33",
+      "title": "图像到表达式",
+      "description": "从一次函数图像中提取斜率和截距，反推出表达式。",
+      "prerequisites": ["lf_expression_to_graph"],
+      "related": ["lf_table_to_expression", "lf_representation_consistency"],
+      "mastery_criteria": ["能从图像读取 y 轴交点", "能用两个点或格点变化求 k"],
+      "difficulty": 4,
+      "estimated_learning_minutes": 50,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-08",
+          "description": "能从图像表示中分析一次函数关系；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "从图像读取截距时看错轴。",
+          "example": "把图像与 x 轴交点当作 b。",
+          "correction_strategy": "要求先标出 y 轴，再读 x = 0 时的 y。"
+        },
+        {
+          "description": "求 k 时只看纵向变化，不看横向变化。",
+          "example": "右移 2 上升 6 时把 k 写成 6。",
+          "correction_strategy": "用“上升量/右移量”语言固定算法。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "6d6d2874-53ca-4da4-bc15-3ab3034af2d0",
+        "question": "一条直线经过 (0,1) 和 (2,5)，写出它对应的一次函数表达式。",
+        "expected_signal": "能读出 b = 1，计算 k = 2，得到 y = 2x + 1。",
+        "diagnostic_hints": ["若学生写 k = 4，引导其用上升量除以右移量。"]
+      },
+      "mentor_prompt": "先别写式子。图像在 y 轴哪里开始？然后从一个格点走到下一个格点，它右移和上升分别是多少？"
+    },
+    {
+      "alias": "lf_context_modeling",
+      "runtime_id": "9bcbb532-15ff-463f-9504-2cefcc1b7e21",
+      "title": "情境建模",
+      "description": "从实际问题中识别初始值和变化率，建立一次函数模型。",
+      "prerequisites": ["lf_variable_relation", "lf_slope_meaning", "lf_intercept_meaning"],
+      "related": ["lf_variable_relation", "lf_representation_consistency"],
+      "mastery_criteria": ["能找出实际情境中的自变量和因变量", "能解释 k 和 b 在情境中的含义"],
+      "difficulty": 4,
+      "estimated_learning_minutes": 55,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-09",
+          "description": "能用一次函数解决简单实际问题；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "把所有数字都塞进公式，不区分初始值和变化率。",
+          "example": "起步价 8 元、每公里 2 元时写成 y = 8x + 2。",
+          "correction_strategy": "追问哪个数字是每多 1 个单位增加的量。"
+        },
+        {
+          "description": "忽略变量的实际范围。",
+          "example": "把行驶里程写成可以为负数。",
+          "correction_strategy": "要求学生说明 x 在情境中可取哪些值。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "04d65ace-2da0-4629-9239-ff8f3bbb4e6c",
+        "question": "打印店收 5 元服务费，每页 0.4 元。写出费用 y 与页数 x 的关系，并解释 k、b。",
+        "expected_signal": "能写 y = 0.4x + 5，并解释 k 是每页费用，b 是固定服务费。",
+        "diagnostic_hints": ["若学生写 y = 5x + 0.4，引导其说出每多一页增加多少。"]
+      },
+      "mentor_prompt": "你先找“每多 1 个单位会增加多少”，再找“还没开始时已经有多少”。这两个数谁像 k，谁像 b？"
+    },
+    {
+      "alias": "lf_representation_consistency",
+      "runtime_id": "0d77a454-85a3-45b7-90fd-f8e95048d487",
+      "title": "多表征一致性检查",
+      "description": "验证文字情境、表格、表达式和图像是否描述同一个一次函数关系。",
+      "prerequisites": ["lf_expression_to_graph", "lf_graph_to_expression", "lf_context_modeling"],
+      "related": ["lf_function_view"],
+      "mastery_criteria": ["能在至少两种表征中找出相同的 k 和 b", "能发现某个表征与其他表征不一致的地方"],
+      "difficulty": 5,
+      "estimated_learning_minutes": 60,
+      "standard_alignments": [
+        {
+          "standard_system": "义务教育数学课程标准（2022年版）",
+          "standard_code": "G8-FUNC-DRAFT-10",
+          "description": "能综合运用表格、图像、表达式表示一次函数；待学科顾问核对精确条目。"
+        }
+      ],
+      "common_misconceptions": [
+        {
+          "description": "把不同表征看成互不相关的题型。",
+          "example": "会从表格写式子，但看到图像就重新猜。",
+          "correction_strategy": "要求学生在每种表征里找同一个 k 和 b。"
+        },
+        {
+          "description": "转换后不验证情境含义。",
+          "example": "写出表达式后不检查费用是否随页数增加而增加。",
+          "correction_strategy": "让学生回到原情境检查一个具体值。"
+        }
+      ],
+      "formative_probe": {
+        "item_id": "a51437ef-eb83-48f1-80ba-b089b8bcadb3",
+        "question": "给出 y = 2x + 1，写出三组表格值，说明图像特征，并编一个对应实际情境。",
+        "expected_signal": "能在表格、图像和情境中保持 k = 2、b = 1 一致。",
+        "diagnostic_hints": ["若情境中的初始值不是 1，引导其检查 x = 0 的含义。"]
+      },
+      "mentor_prompt": "你能不能把同一个 k 和 b 藏进三种不同外衣里：表格、图像和一个生活故事？"
+    }
+  ],
+  "acceptance_notes": [
+    "本文件为作者侧草稿，不含学生个人数据。",
+    "课标 code 当前为 draft，占位项必须由学科顾问核对后才能 published。",
+    "runtime_id 均为 UUID v4，可编译为 shared-types KnowledgeNode / Unit / LearningPath / Assessment。"
+  ]
+}

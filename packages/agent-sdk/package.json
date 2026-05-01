@@ -1,0 +1,26 @@
+{
+  "name": "@edu-ai/agent-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./dialogue-modes": "./src/dialogue-modes/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "node -e \"const fs=require('fs'); for (const p of ['dist','.turbo']) fs.rmSync(p,{recursive:true,force:true});\"",
+    "lint": "tsc --noEmit --pretty false",
+    "typecheck": "tsc --noEmit --pretty false",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@edu-ai/memory-store": "workspace:*",
+    "@edu-ai/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.1",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

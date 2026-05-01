@@ -1,0 +1,33 @@
+{
+  "name": "@edu-ai/content-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "node -e \"const fs=require('fs'); for (const p of ['dist','.turbo']) fs.rmSync(p,{recursive:true,force:true});\"",
+    "unit:validate": "tsx src/cli.ts validate-unit ../../content/units/math-g8-s1-linear-function-concept/unit.yaml",
+    "workflow:smoke": "tsx src/cli.ts run-workflow-smoke ../../content/units/math-g8-s1-linear-function-concept/unit.yaml",
+    "workflow:llm-mock": "tsx src/cli.ts run-llm-mock ../../content/units/math-g8-s1-linear-function-concept/unit.yaml",
+    "safe-execution:compaction-scan": "tsx src/safe-execution-compaction-scan.ts",
+    "lint": "tsc --noEmit --pretty false",
+    "test": "vitest run",
+    "test:deep-cli-stress": "node -e \"process.env.CONTENT_PIPELINE_DEEP_CLI_STRESS='1'; const { spawnSync } = require('node:child_process'); const result = spawnSync('vitest', ['run', 'tests/provider-execution-follow-up-delivery-follow-up-delivery-follow-up-cli.spec.ts', '--reporter=dot'], { stdio: 'inherit', shell: process.platform === 'win32', env: process.env }); process.exit(result.status ?? 1);\"",
+    "typecheck": "tsc --noEmit --pretty false"
+  },
+  "dependencies": {
+    "@edu-ai/agent-sdk": "workspace:*",
+    "@edu-ai/llm-gateway": "workspace:*",
+    "@edu-ai/shared-types": "workspace:*",
+    "yaml": "^2.8.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}
