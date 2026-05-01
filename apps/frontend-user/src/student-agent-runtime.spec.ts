@@ -1,6 +1,13 @@
 import { AgentMode, PrivacyLevel, type AgentRuntimeEventProjection } from "@edu-ai/shared-types";
 import { describe, expect, it } from "vitest";
 
+import {
+  canShowEvidenceAiPrompts,
+  chineseL001DemoCourse,
+  findDemoCoursePrivacyLeaks,
+  isNoAiDemoPage,
+  type DemoPage
+} from "./chinese-l001-demo-course";
 import { buildStudentAgentTurn } from "./student-agent-runtime";
 import { buildStudentRuntimeProjectionDemo, formatRuntimeProjectionTimeline } from "./student-runtime-events";
 
@@ -20,14 +27,14 @@ describe("student agent runtime bridge", () => {
 
   it("uses tutor explanation policy when the student asks for why", () => {
     const result = buildStudentAgentTurn({
-      message: "为什么 k 会影响直线倾斜？",
+      message: "为什么意象会影响情感基调？",
       requested_mode: AgentMode.TUTOR,
       previous_student_turns: 0,
       detected_at: "2026-04-22T08:00:00.000Z"
     });
 
     expect(result.answer_policy).toBe("clear_explanation_with_check");
-    expect(result.assistant_message).toContain("k 决定图像的倾斜方向");
+    expect(result.assistant_message).toContain("意象不是孤立景物");
   });
 
   it("refuses submittable answer requests while offering a first step", () => {
@@ -39,7 +46,7 @@ describe("student agent runtime bridge", () => {
     });
 
     expect(result.answer_policy).toBe("boundary_refusal_with_alternative");
-    expect(result.assistant_message).toContain("不能替你生成可提交答案");
+    expect(result.assistant_message).toContain("不能替你生成可提交赏析段");
   });
 
   it("routes frustration to campus local without queuing a cross-agent signal", () => {
@@ -53,7 +60,7 @@ describe("student agent runtime bridge", () => {
     expect(result.route_selected).toBe("campus_local");
     expect(result.risk_level).toBe("local_only");
     expect(result.signal_ready_for_backend).toBe(false);
-    expect(result.assistant_message).toContain("先把任务缩小");
+    expect(result.assistant_message).toContain("只选一个文本锚点");
   });
 
   it("keeps yellow risk local and only exposes abstract signal readiness", () => {
@@ -99,7 +106,7 @@ describe("student agent runtime bridge", () => {
     ]);
     expect(timeline[2]).toMatchObject({
       event_type: "source_anchor",
-      source_reference: "知识节点 · knowledge.nodes.lf_slope_meaning"
+      source_reference: "知识节点 · authorized_text_anchor.T2"
     });
     expect(JSON.stringify(timeline)).not.toContain("prompt_id");
     expect(JSON.stringify(timeline)).not.toContain("local_mock");
@@ -133,5 +140,43 @@ describe("student agent runtime bridge", () => {
     expect(JSON.stringify(timeline)).not.toContain("prompt_id");
     expect(JSON.stringify(timeline)).not.toContain("local_mock");
     expect(JSON.stringify(timeline)).not.toContain("internal_metadata");
+  });
+
+  it("keeps the Chinese L001 demo course locked to mock-only safe defaults", () => {
+    expect(chineseL001DemoCourse.mode).toBe("mock_only_frontend_prototype");
+    expect(findDemoCoursePrivacyLeaks()).toEqual([]);
+    expect(chineseL001DemoCourse.authorizedTextAnchorPolicy.fullTextEmbedded).toBe(false);
+    expect(chineseL001DemoCourse.authorizedTextAnchorPolicy.textbookScanEmbedded).toBe(false);
+    expect(chineseL001DemoCourse.pages).toHaveLength(7);
+  });
+
+  it("keeps No-AI pages closed to AI prompts", () => {
+    const noAiPages = (chineseL001DemoCourse.pages as readonly DemoPage[]).filter((page) => isNoAiDemoPage(page));
+
+    expect(noAiPages.map((page) => page.pageId)).toEqual(["P01", "P07"]);
+    noAiPages.forEach((page) => {
+      expect(page.allowedAiPrompts).toBeUndefined();
+    });
+  });
+
+  it("does not open evidence-card AI prompts until two anchors are present", () => {
+    expect(canShowEvidenceAiPrompts(0)).toBe(false);
+    expect(canShowEvidenceAiPrompts(1)).toBe(false);
+    expect(canShowEvidenceAiPrompts(2)).toBe(true);
+  });
+
+  it("keeps teacher preview to aggregate signals and suggested actions", () => {
+    const teacherVisiblePayload = JSON.stringify({
+      classSummary: chineseL001DemoCourse.teacherPreview.classSummary,
+      suggestedTeacherActions: chineseL001DemoCourse.teacherPreview.suggestedTeacherActions,
+      pageSignals: chineseL001DemoCourse.pages.map((page) => page.teacherSignals)
+    });
+
+    expect(teacherVisiblePayload).not.toContain("raw_student_text");
+    expect(teacherVisiblePayload).not.toContain("raw_audio");
+    expect(teacherVisiblePayload).not.toContain("full_transcript");
+    expect(teacherVisiblePayload).not.toContain("raw_ai_dialogue");
+    expect(teacherVisiblePayload).not.toContain("emotion_original");
+    expect(teacherVisiblePayload).not.toContain("family_experience");
   });
 });

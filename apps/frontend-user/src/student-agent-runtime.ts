@@ -39,14 +39,14 @@ export function buildStudentAgentTurn(input: StudentAgentTurnInput): StudentAgen
     current_mode: input.requested_mode,
     stuck_count: input.previous_student_turns,
     knowledge_node: {
-      id: "math_g8_linear_function_slope_k",
-      title: "斜率 k 的意义",
-      mastery_criteria: "能解释 k 与图像倾斜方向的关系，并能用图像判断 k 的正负。",
+      id: "cn_l001_imagery_emotional_tone",
+      title: "意象、动作色彩空间与情感基调",
+      mastery_criteria: "能用文本锚点说明意象如何通过动作、色彩或空间关系形成精神气象。",
       common_misconceptions: [
         {
-          description: "把 k 和 b 的作用混淆",
-          example: "认为 b 变大时直线会变得更陡。",
-          correction_strategy: "先固定 k，只改变 b，观察整条直线的上下平移。"
+          description: "只背主题，没有回到文本证据",
+          example: "直接说昂扬向上，但没有说明来自哪个意象和中间层。",
+          correction_strategy: "先补一个文本锚点，再追问动作、色彩或空间关系。"
         }
       ]
     }
@@ -68,16 +68,16 @@ export function buildStudentAgentTurn(input: StudentAgentTurnInput): StudentAgen
 
 function assistantMessageFor(policy: DialogueAnswerPolicy, shouldPauseAcademicTask: boolean): string {
   if (shouldPauseAcademicTask || policy === "support_and_shrink_task") {
-    return "先把任务缩小：现在只看图像是上升还是下降。这个判断不用算式，凭图像直觉先说一句就好。";
+    return "先把任务缩小：现在只选一个文本锚点，说清你看见了什么。暂时不用概括主题。";
   }
 
   if (policy === "boundary_refusal_with_alternative") {
-    return "我不能替你生成可提交答案，但可以陪你走第一步：先判断 k 是正数还是负数，再看图像朝哪个方向倾斜。";
+    return "我不能替你生成可提交赏析段，但可以陪你走第一步：先选一个锚点，再说它的动作、色彩或空间感。";
   }
 
   if (policy === "clear_explanation_with_check") {
-    return "可以。k 决定图像的倾斜方向和陡峭程度，b 决定图像与 y 轴的交点。你检查一下：如果 b 变大，整条直线会怎样移动？";
+    return "可以。意象不是孤立景物，要经过动作、色彩或空间关系，才会形成情感基调。你检查一下：你的判断来自哪个中间层？";
   }
 
-  return "你先选一个入口：看图像的倾斜，还是看它和 y 轴的交点？我们只走一步。";
+  return "你先选一个文本锚点：它让你看见了什么动作、色彩或空间关系？我们只走这一步。";
 }

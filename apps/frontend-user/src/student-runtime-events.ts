@@ -20,32 +20,32 @@ export interface RuntimeTimelineItem {
 export function buildStudentRuntimeProjectionDemo(): readonly AgentRuntimeEventProjection[] {
   return [
     createProjection(0, "stage_start", "academic", {
-      title: "Nova 开始这一小步",
-      summary: "学习焦点：斜率 k 的意义。"
+      title: "Nova 进入语文 L001",
+      summary: "学习焦点：从文本锚点建立意象、动作色彩空间与情感基调的证据链。"
     }),
     createProjection(1, "progress", "academic", {
       progress: {
         current: 1,
-        total: 3,
-        label: "先把概念锚点和当前练习块对齐"
+        total: 7,
+        label: "先完成 No-AI 第一感受，再开放 AI 后追问"
       }
     }),
     createProjection(2, "source_anchor", "content", {
       source_anchor: {
-        source_id: "lf_slope_meaning",
+        source_id: "cn_l001_anchor_t2",
         source_type: "knowledge_node",
-        reference: "knowledge.nodes.lf_slope_meaning"
+        reference: "authorized_text_anchor.T2"
       }
     }),
     createProjection(3, "result", "academic", {
       result: {
-        result_code: "mock_student_agent_guidance_ready",
-        summary: "下一步可以进入一次 No-AI 口头解释检查。"
+        result_code: "mock_cn_l001_evidence_chain_ready",
+        summary: "下一步可以补足中间层，进入 No-AI 出口表达。"
       }
     }),
     createProjection(4, "done", "runtime", {
-      title: "本轮引导完成",
-      summary: "这里只展示学生可见的结构化运行轨迹。"
+      title: "本轮课堂动作完成",
+      summary: "这里只展示学生可见的结构化运行轨迹，不展示 prompt、provider 或原始对话。"
     })
   ];
 }
